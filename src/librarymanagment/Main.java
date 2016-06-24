@@ -6,14 +6,6 @@
 package librarymanagment;
 
 import java.awt.ComponentOrientation;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
 
 /**
  *
@@ -49,6 +41,7 @@ public class Main extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("مدیریت کتابخانه");
         setPreferredSize(new java.awt.Dimension(400, 400));
 
         btnExit.setText("خروج");
@@ -64,18 +57,38 @@ public class Main extends javax.swing.JFrame {
 
         jLabel4.setText("www.adicom.ir");
 
+        jMenuBar1.setBackground(new java.awt.Color(254, 254, 254));
         jMenuBar1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
+        jMenu1.setForeground(new java.awt.Color(1, 1, 1));
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/1466695915_book.png"))); // NOI18N
         jMenu1.setText("مدیریت کتاب");
+        jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setForeground(new java.awt.Color(1, 1, 1));
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/1466695990_user_man.png"))); // NOI18N
         jMenu2.setText("مدیریت اعضا");
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setForeground(new java.awt.Color(1, 1, 1));
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/1466696034_Exchange_Swap_Change_Direction_Arrows.png"))); // NOI18N
         jMenu3.setText("امانت");
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setForeground(new java.awt.Color(1, 1, 1));
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/1466696010_Document.png"))); // NOI18N
         jMenu4.setText("گزارش");
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu4MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -113,6 +126,16 @@ public class Main extends javax.swing.JFrame {
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_btnExitMouseClicked
+
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+        BookOperation bookOp = new BookOperation();
+        bookOp.setVisible(true);
+    }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        BookOperation bookOp = new BookOperation();
+        bookOp.setVisible(true);
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments
