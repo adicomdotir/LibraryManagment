@@ -7,6 +7,7 @@ package librarymanagment;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -50,11 +51,11 @@ public class BookOperation extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnInsert = new javax.swing.JButton();
 
         cbCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "درسی", "دانشگاهی", "داستان", "ادبیات", "کامپیوتر" }));
 
@@ -77,33 +78,43 @@ public class BookOperation extends javax.swing.JFrame {
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("1");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/search.png"))); // NOI18N
-        jButton1.setText("جستجو");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/search.png"))); // NOI18N
+        btnSearch.setText("جستجو");
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnSearchMouseClicked(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/edit.png"))); // NOI18N
-        jButton2.setText("ویرایش");
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/back.png"))); // NOI18N
-        jButton3.setText("برگشت");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/edit.png"))); // NOI18N
+        btnEdit.setText("ویرایش");
+        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                btnEditMouseClicked(evt);
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/delete.png"))); // NOI18N
-        jButton4.setText("حذف");
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/add.png"))); // NOI18N
-        jButton5.setText("ثبت");
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/back.png"))); // NOI18N
+        btnBack.setText("برگشت");
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton5MouseClicked(evt);
+                btnBackMouseClicked(evt);
+            }
+        });
+
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/delete.png"))); // NOI18N
+        btnDelete.setText("حذف");
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
+
+        btnInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/add.png"))); // NOI18N
+        btnInsert.setText("ثبت");
+        btnInsert.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnInsertMouseClicked(evt);
             }
         });
 
@@ -142,18 +153,18 @@ public class BookOperation extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(66, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel1)
-                        .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnInsert, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(83, 83, 83))
         );
         layout.setVerticalGroup(
@@ -195,49 +206,81 @@ public class BookOperation extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnSearch))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btnInsert)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnBack)
+                    .addComponent(btnDelete))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
-        SqlHelper.insert();
-    }//GEN-LAST:event_jButton5MouseClicked
+    private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
+        SqlHelper.insert(Integer.valueOf(txtCode.getText()),
+                txtName.getText(),
+                (String) cbCat.getSelectedItem(),
+                txtWriter.getText(),
+                Integer.valueOf(txtYear.getText()),
+                Integer.valueOf(txtPrice.getText()),
+                Integer.valueOf(txtNumber.getText())
+        );
+        clearComponent();
+    }//GEN-LAST:event_btnInsertMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+        // Search Button Code
         String str = SqlHelper.select(Integer.valueOf(jTextField1.getText()));
-        JSONParser parser = new JSONParser();
-        Object object = null;
-        try {
-            object = parser.parse(str);
-        } catch (ParseException ex) {
-            Logger.getLogger(BookOperation.class.getName()).log(Level.SEVERE, null, ex);
+        if(str != null) {
+            JSONParser parser = new JSONParser();
+            Object object = null;
+            try {
+                object = parser.parse(str);
+            } catch (ParseException ex) {
+                Logger.getLogger(BookOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JSONObject array = (JSONObject) object;
+            txtCode.setText("" + array.get("id"));
+            txtCode.setEnabled(false);
+            txtName.setText("" + array.get("name"));
+            // txt.setText("" + array.get("category"));
+            cbCat.setSelectedItem(array.get("category"));
+            txtWriter.setText("" + array.get("writer"));
+            txtYear.setText("" + array.get("year"));
+            txtPrice.setText("" + array.get("price"));
+            txtNumber.setText("" + array.get("number"));
+        } else {
+            JOptionPane.showMessageDialog(null, "کتابی به این شماره وجود ندارد.", "پیغام", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "کتابی به این شماره وجود ندارد.");
         }
-        JSONObject array = (JSONObject) object;
-        txtCode.setText("" + array.get("id"));
-        txtCode.setEnabled(false);
-        txtName.setText("" + array.get("name"));
-        // txt.setText("" + array.get("category"));
-        cbCat.setSelectedItem(array.get("category"));
-        txtWriter.setText("" + array.get("writer"));
-        txtYear.setText("" + array.get("year"));
-        txtPrice.setText("" + array.get("price"));
-        txtNumber.setText("" + array.get("number"));
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_btnSearchMouseClicked
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
+        // Back Button
         this.setVisible(false);
-    }//GEN-LAST:event_jButton3MouseClicked
+    }//GEN-LAST:event_btnBackMouseClicked
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        SqlHelper.delete(Integer.valueOf(txtCode.getText()));
+        clearComponent();
+    }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
+        SqlHelper.update(Integer.valueOf(txtCode.getText()),
+                txtName.getText(),
+                (String) cbCat.getSelectedItem(),
+                txtWriter.getText(),
+                Integer.valueOf(txtYear.getText()),
+                Integer.valueOf(txtPrice.getText()),
+                Integer.valueOf(txtNumber.getText())
+        );
+        clearComponent();
+    }//GEN-LAST:event_btnEditMouseClicked
 
     /**
      * @param args the command line arguments
@@ -275,12 +318,12 @@ public class BookOperation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnInsert;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cbCat;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
@@ -298,4 +341,15 @@ public class BookOperation extends javax.swing.JFrame {
     private javax.swing.JTextField txtWriter;
     private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
+
+    private void clearComponent() {
+        txtCode.setText("");
+        txtCode.setEnabled(true);
+        txtName.setText("");
+        cbCat.setSelectedIndex(0);
+        txtWriter.setText("");
+        txtYear.setText("");
+        txtPrice.setText("");
+        txtNumber.setText("");
+    }
 }
