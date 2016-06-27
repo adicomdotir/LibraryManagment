@@ -5,13 +5,6 @@
  */
 package librarymanagment;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 /**
  *
  * @author adicom
@@ -222,42 +215,31 @@ public class BookOperation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
-        SqlHelper.insert(Integer.valueOf(txtCode.getText()),
-                txtName.getText(),
-                (String) cbCat.getSelectedItem(),
-                txtWriter.getText(),
-                Integer.valueOf(txtYear.getText()),
-                Integer.valueOf(txtPrice.getText()),
-                Integer.valueOf(txtNumber.getText())
-        );
+        String command = "INSERT INTO book (id,name,category,writer,year,price,number) " +
+                "VALUES ("+Integer.valueOf(txtCode.getText())+
+                ",'"+txtName.getText()+
+                "','"+(String) cbCat.getSelectedItem()+
+                "','"+txtWriter.getText()+
+                "',"+Integer.valueOf(txtYear.getText())+
+                ","+Integer.valueOf(txtPrice.getText())+
+                ","+Integer.valueOf(txtNumber.getText())+");";
+        SqlHelper.insert(command);
         clearComponent();
     }//GEN-LAST:event_btnInsertMouseClicked
 
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
         // Search Button Code
-        String str = SqlHelper.select(Integer.valueOf(jTextField1.getText()));
-        if(str != null) {
-            JSONParser parser = new JSONParser();
-            Object object = null;
-            try {
-                object = parser.parse(str);
-            } catch (ParseException ex) {
-                Logger.getLogger(BookOperation.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            JSONObject array = (JSONObject) object;
-            txtCode.setText("" + array.get("id"));
-            txtCode.setEnabled(false);
-            txtName.setText("" + array.get("name"));
-            // txt.setText("" + array.get("category"));
-            cbCat.setSelectedItem(array.get("category"));
-            txtWriter.setText("" + array.get("writer"));
-            txtYear.setText("" + array.get("year"));
-            txtPrice.setText("" + array.get("price"));
-            txtNumber.setText("" + array.get("number"));
-        } else {
-            JOptionPane.showMessageDialog(null, "کتابی به این شماره وجود ندارد.", "پیغام", JOptionPane.INFORMATION_MESSAGE);
-            //JOptionPane.showMessageDialog(null, "کتابی به این شماره وجود ندارد.");
-        }
+        String command = "SELECT * FROM book WHERE id=" + Integer.valueOf(jTextField1.getText()) + ";";
+        String str = SqlHelper.select(command);
+        String[] strArr = str.split("&");
+        txtCode.setText(strArr[0]);
+        txtCode.setEnabled(false);
+        txtName.setText(strArr[1]);
+        cbCat.setSelectedItem(strArr[2]);
+        txtWriter.setText(strArr[3]);
+        txtYear.setText(strArr[4]);
+        txtPrice.setText(strArr[5]);
+        txtNumber.setText(strArr[6]);
     }//GEN-LAST:event_btnSearchMouseClicked
 
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
@@ -266,19 +248,19 @@ public class BookOperation extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackMouseClicked
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
-        SqlHelper.delete(Integer.valueOf(txtCode.getText()));
+        SqlHelper.delete("delete from book where id = " + Integer.valueOf(txtCode.getText()) + ";");
         clearComponent();
     }//GEN-LAST:event_btnDeleteMouseClicked
 
     private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
-        SqlHelper.update(Integer.valueOf(txtCode.getText()),
-                txtName.getText(),
-                (String) cbCat.getSelectedItem(),
-                txtWriter.getText(),
-                Integer.valueOf(txtYear.getText()),
-                Integer.valueOf(txtPrice.getText()),
-                Integer.valueOf(txtNumber.getText())
-        );
+        String sql = "UPDATE book set name='" + txtName.getText() + "'"
+                    + ",category='" + (String) cbCat.getSelectedItem() 
+                    + "',writer='" + txtWriter.getText() + "'"
+                    + ",year=" + Integer.valueOf(txtYear.getText()) 
+                    + ",price=" + Integer.valueOf(txtPrice.getText()) 
+                    + ",number=" + Integer.valueOf(txtNumber.getText())
+                    + " where id=" + Integer.valueOf(txtCode.getText()) + ";";
+        SqlHelper.update(sql);
         clearComponent();
     }//GEN-LAST:event_btnEditMouseClicked
 

@@ -3,20 +3,20 @@ package librarymanagment;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONObject;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author adicom
  */
 public class SqlHelper {
-    
-    public static void insert(int id, String name, String cat, String writer,
-            int year, int price, int number) {
+
+    public static void insert(String query) {
         Connection c = null;
         Statement stmt = null;
         try {
@@ -26,12 +26,11 @@ public class SqlHelper {
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "INSERT INTO book (id,name,category,writer,year,price,number) " +
-                         "VALUES ("+id+",'"+name+"','"+cat+"','"+writer+"',"+year+","+price+","+number+");"; 
+            String sql = query;
             stmt.executeUpdate(sql);
             c.commit();
         } catch (ClassNotFoundException | SQLException e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         } finally {
             try {
@@ -43,10 +42,12 @@ public class SqlHelper {
         }
         System.out.println("Insert into database successfully");
     }
-    
-    public static String select(int index) {
+
+    public static String select(String query) {
         Connection c = null;
         Statement stmt = null;
+        ResultSet rs = null;
+        String strTemp = "";
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:library");
@@ -54,23 +55,20 @@ public class SqlHelper {
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM book WHERE id=" + index + ";" );
-            if(rs.next()) {
-                JSONObject obj = new JSONObject();
-                obj.put("id", rs.getInt("id"));
-                obj.put("name", rs.getString("name"));
-                obj.put("category", rs.getString("category"));
-                obj.put("writer", rs.getString("writer"));
-                obj.put("year", rs.getInt("year"));
-                obj.put("price", rs.getInt("price"));
-                obj.put("number", rs.getInt("number"));
-                return obj.toString();
+            rs = stmt.executeQuery(query);
+            ResultSetMetaData metaData = rs.getMetaData();
+            if (rs.next()) {
+                for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                    strTemp += rs.getObject(i) + "&";
+                }
+                System.out.println(rs);
             } else {
                 System.out.println("not exist record.");
+                JOptionPane.showMessageDialog(null, "عضوی به این شماره وجود ندارد.", "پیغام", JOptionPane.INFORMATION_MESSAGE);
             }
             rs.close();
-        } catch ( ClassNotFoundException | SQLException e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } catch (ClassNotFoundException | SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         } finally {
             try {
@@ -81,10 +79,10 @@ public class SqlHelper {
             }
         }
         System.out.println("Operation done successfully");
-        return null;
+        return strTemp;
     }
 
-    public static void delete(int index) {
+    public static void delete(String query) {
         Connection c = null;
         Statement stmt = null;
         try {
@@ -94,13 +92,12 @@ public class SqlHelper {
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "DELETE from book where id="+ index +";";
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate(query);
             c.commit();
-        } catch ( ClassNotFoundException | SQLException e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } catch (ClassNotFoundException | SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
-        }  finally {
+        } finally {
             try {
                 stmt.close();
                 c.close();
@@ -110,9 +107,8 @@ public class SqlHelper {
         }
         System.out.println("Operation done successfully");
     }
-    
-    public static void update(int id, String name, String cat, String writer,
-            int year, int price, int number) {
+
+    public static void update(String query) {
         Connection c = null;
         Statement stmt = null;
         try {
@@ -122,16 +118,13 @@ public class SqlHelper {
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "UPDATE book set name='"+name+"'"
-                    + ",category='"+cat+"',writer='"+writer+"'"
-                    + ",year="+year+",price="+price+",number="+number
-                    + " where id="+id+";";
-            stmt.executeUpdate(sql);
+            
+            stmt.executeUpdate(query);
             c.commit();
-        } catch ( ClassNotFoundException | SQLException e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } catch (ClassNotFoundException | SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
-        }  finally {
+        } finally {
             try {
                 stmt.close();
                 c.close();
@@ -141,4 +134,8 @@ public class SqlHelper {
         }
         System.out.println("Operation done successfully");
     }
+}
+
+interface ResultSetConsumer<T> {
+    public T consume(ResultSet rs);
 }

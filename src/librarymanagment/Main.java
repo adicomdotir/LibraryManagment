@@ -74,6 +74,11 @@ public class Main extends javax.swing.JFrame {
         jMenu2.setForeground(new java.awt.Color(1, 1, 1));
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/1466695990_user_man.png"))); // NOI18N
         jMenu2.setText("مدیریت اعضا");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         jMenu3.setForeground(new java.awt.Color(1, 1, 1));
@@ -136,6 +141,11 @@ public class Main extends javax.swing.JFrame {
         BookOperation bookOp = new BookOperation();
         bookOp.setVisible(true);
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        MemberOperation mo = new MemberOperation();
+        mo.setVisible(true);
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments
