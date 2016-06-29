@@ -330,5 +330,13 @@ public class MemberOperation extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void clearComponent() {
+        txtCode.setText("");
+        txtCode.setEnabled(true);
+        txtNationalId.setText("");
+        cbSex.setSelectedItem("");
+        txtFName.setText("");
+        txtLName.setText("");
+        txtPhone.setText("");
+        txtAddress.setText("");
     }
 }

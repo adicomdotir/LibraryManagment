@@ -61,7 +61,7 @@ public class SqlHelper {
                 for (int i = 1; i <= metaData.getColumnCount(); i++) {
                     strTemp += rs.getObject(i) + "&";
                 }
-                System.out.println(rs);
+                
             } else {
                 System.out.println("not exist record.");
                 JOptionPane.showMessageDialog(null, "عضوی به این شماره وجود ندارد.", "پیغام", JOptionPane.INFORMATION_MESSAGE);

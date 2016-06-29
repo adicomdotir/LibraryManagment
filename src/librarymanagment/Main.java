@@ -84,6 +84,11 @@ public class Main extends javax.swing.JFrame {
         jMenu3.setForeground(new java.awt.Color(1, 1, 1));
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagment/1466696034_Exchange_Swap_Change_Direction_Arrows.png"))); // NOI18N
         jMenu3.setText("امانت");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         jMenu4.setForeground(new java.awt.Color(1, 1, 1));
@@ -146,6 +151,11 @@ public class Main extends javax.swing.JFrame {
         MemberOperation mo = new MemberOperation();
         mo.setVisible(true);
     }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        LendOperation lo = new LendOperation();
+        lo.setVisible(true);
+    }//GEN-LAST:event_jMenu3MouseClicked
 
     /**
      * @param args the command line arguments
